@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright 2015 The CHOReVOLUTION project
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>eu.chorevolution.syncope.utility</groupId>
+	<artifactId>publish-services-into-serviceinventory</artifactId>
+	<version>1.0.0</version>
+	<packaging>jar</packaging>
+
+	<prerequisites>
+		<maven>3.0</maven>
+	</prerequisites>
+
+	<organization>
+		<name>The CHOReVOLUTION project</name>
+		<url>http://www.chorevolution.eu</url>
+	</organization>
+
+	<properties>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<encoding>UTF-8</encoding>
+
+		<all.java.dependencies.target-folder>${project.build.directory}/all-java-dependencies</all.java.dependencies.target-folder>
+		<syncope.version>2.0.3</syncope.version>
+		<commons-io.version>2.5</commons-io.version>
+		<slf4j-api.version>1.7.12</slf4j-api.version>
+		<slf4j-log4j12.version>1.7.12</slf4j-log4j12.version>
+	</properties>
+
+	<repositories>
+     
+		<repository>
+			<id>disim-nexus-releases</id>
+			<url>http://nexus.disim.univaq.it/content/repositories/releases/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>	
+		<repository>
+			<id>disim-nexus-3rd-party</id>
+			<url>http://nexus.disim.univaq.it/content/repositories/thirdparty/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>		
+		<repository>
+			<id>disim-nexus-snapshots</id>
+			<url>http://nexus.disim.univaq.it/content/repositories/snapshots/</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>ow2-releases</id>
+			<url>http://repository.ow2.org/nexus/content/repositories/releases/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>	
+	</repositories>
+
+	<dependencies>
+		<dependency>
+			<groupId>eu.chorevolution.modelingnotations</groupId>
+			<artifactId>eu.chorevolution.modelingnotations.security</artifactId>
+			<version>2.1.0</version>
+		</dependency>
+		<!-- org.eclipse.emf -->
+		<dependency>
+			<groupId>org.eclipse.emf</groupId>
+			<artifactId>org.eclipse.emf.common</artifactId>
+			<version>2.12.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.emf</groupId>
+			<artifactId>org.eclipse.emf.ecore</artifactId>
+			<version>2.12.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.emf</groupId>
+			<artifactId>org.eclipse.emf.ecore.xmi</artifactId>
+			<version>2.12.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.syncope.client</groupId>
+			<artifactId>syncope-client-lib</artifactId>
+			<version>${syncope.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>eu.chorevolution.idm.ext.choreography</groupId>
+			<artifactId>syncope-ext-choreography-rest-api</artifactId>
+			<version>2.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>${commons-io.version}</version>
+		</dependency>
+		<!-- logs -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j-api.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${slf4j-log4j12.version}</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.5.1</version>
+				<configuration>
+					<source>${maven.compiler.source}</source>
+					<target>${maven.compiler.target}</target>
+					<useIncrementalCompilation>false</useIncrementalCompilation>
+					<showWarnings>true</showWarnings>
+					<showDeprecation>true</showDeprecation>
+					<compilerArgument>-Xlint:unchecked</compilerArgument>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.10</version>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>clean</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${all.java.dependencies.target-folder}</outputDirectory>
+							<overWriteReleases>true</overWriteReleases>
+							<overWriteSnapshots>true</overWriteSnapshots>
+							<stripVersion>false</stripVersion>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.5.0</version>
+				<executions>
+					<execution>
+						<id>gidl</id>
+						<goals>
+							<goal>java</goal>
+						</goals>
+						<configuration>
+							<mainClass>eu.chorevolution.syncope.utility.publishservice.serviceinventory.PublishServiceIntoServiceInventoryGidl</mainClass>
+							<outputFile>${project.build.directory}/log/exec.log</outputFile>
+							<cleanupDaemonThreads>false</cleanupDaemonThreads>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
