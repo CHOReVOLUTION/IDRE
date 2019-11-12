@@ -1,4 +1,4 @@
-[CHOReVOLUTION IDRE](http://http://www.chorevolution.eu/) includes software tools for choreography modeling, synthesis, adaptation,
+[CHOReVOLUTION IDRE](http://www.chorevolution.eu/) includes software tools for choreography modeling, synthesis, adaptation,
 service bus, security, identity management and cloud (with monitoring and overall management at run-time).
 The platform ensures the distributed coordination of services and things in a context characterized by dynamic changes. These include business goal changes, preferences and context-changes, as
 services or partners may be substituted and network conditions may evolve.
