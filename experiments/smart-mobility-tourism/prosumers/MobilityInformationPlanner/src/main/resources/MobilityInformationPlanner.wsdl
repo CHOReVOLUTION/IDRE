@@ -1,0 +1,603 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://eu.chorevolution.smartmobilitytourism/mobilityinformationplanner" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="cdmobilityinformationplanner" targetNamespace="http://eu.chorevolution.smartmobilitytourism/mobilityinformationplanner">
+  <wsdl:types>
+    <xsd:schema xmlns="http://eu.chorevolution.smartmobilitytourism/mobilityinformationplanner" elementFormDefault="unqualified" targetNamespace="http://eu.chorevolution.smartmobilitytourism/mobilityinformationplanner" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<xsd:complexType name="getTouristicGuideRequest">
+<xsd:sequence>
+<xsd:element name="upperRightLat" type="xsd:double"/>
+<xsd:element name="upperRightLon" type="xsd:double"/>
+<xsd:element name="lowerLeftLat" type="xsd:double"/>
+<xsd:element name="lowerLeftLon" type="xsd:double"/>
+<xsd:element name="fromLat" type="xsd:double"/>
+<xsd:element name="fromLon" type="xsd:double"/>
+<xsd:element name="toLat" type="xsd:double"/>
+<xsd:element name="toLon" type="xsd:double"/>
+<xsd:element name="transportMode" type="modes"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="getTouristicGuideResponse">
+<xsd:sequence>
+<xsd:element minOccurs="0" name="Trip" type="tripsResponse"/>
+<xsd:element maxOccurs="unbounded" minOccurs="0" name="parkings" type="ParkingType"/>
+<xsd:element maxOccurs="unbounded" minOccurs="0" name="trafficInfos" type="TrafficType"/>
+<xsd:element maxOccurs="unbounded" minOccurs="0" name="publicTransportInfo" type="NewsType"/>
+<xsd:element maxOccurs="unbounded" minOccurs="0" name="weatherStations" type="WeatherType"/>
+<xsd:element maxOccurs="unbounded" minOccurs="0" name="pois" type="PoiType"/>
+<xsd:element maxOccurs="unbounded" minOccurs="0" name="events" type="NewsType"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="getMobilityInfoRequest">
+<xsd:sequence>
+<xsd:element name="upperRightLat" type="xsd:double"/>
+<xsd:element name="upperRightLon" type="xsd:double"/>
+<xsd:element name="lowerLeftLat" type="xsd:double"/>
+<xsd:element name="lowerLeftLon" type="xsd:double"/>
+<xsd:element name="fromLat" type="xsd:double"/>
+<xsd:element name="fromLon" type="xsd:double"/>
+<xsd:element name="toLat" type="xsd:double"/>
+<xsd:element name="toLon" type="xsd:double"/>
+<xsd:element name="transportMode" type="modes"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="getMobilityInfoResponse">
+<xsd:sequence>
+<xsd:element minOccurs="0" name="Trip" type="tripsResponse"/>
+<xsd:element maxOccurs="unbounded" minOccurs="0" name="parkings" type="ParkingType"/>
+<xsd:element maxOccurs="unbounded" minOccurs="0" name="trafficInfos" type="TrafficType"/>
+<xsd:element maxOccurs="unbounded" minOccurs="0" name="publicTransportInfo" type="NewsType"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="getTourismInfoRequest">
+<xsd:sequence>
+<xsd:element name="upperRightLat" type="xsd:double"/>
+<xsd:element name="upperRightLon" type="xsd:double"/>
+<xsd:element name="lowerLeftLat" type="xsd:double"/>
+<xsd:element name="lowerLeftLon" type="xsd:double"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="getTourismInfoResponse">
+<xsd:sequence>
+<xsd:element maxOccurs="unbounded" minOccurs="0" name="weatherStations" type="WeatherType"/>
+<xsd:element maxOccurs="unbounded" minOccurs="0" name="pois" type="PoiType"/>
+<xsd:element maxOccurs="unbounded" minOccurs="0" name="events" type="NewsType"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="tripsRequest">
+<xsd:sequence>
+<xsd:element name="fromLat" type="xsd:double"/>
+<xsd:element name="fromLon" type="xsd:double"/>
+<xsd:element name="toLat" type="xsd:double"/>
+<xsd:element name="toLon" type="xsd:double"/>
+<xsd:element name="transportMode" type="modes"/>
+<xsd:element name="startAt" nillable="true" type="xsd:dateTime"/>
+<xsd:element name="endAt" nillable="true" type="xsd:dateTime"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:simpleType name="modes">
+<xsd:restriction base="xsd:string">
+<xsd:enumeration value="Walk"/>
+<xsd:enumeration value="Bicycle"/>
+<xsd:enumeration value="PublicTransport"/>
+<xsd:enumeration value="Car"/>
+</xsd:restriction>
+</xsd:simpleType>
+<xsd:complexType name="tripsResponse">
+<xsd:sequence>
+<xsd:element name="from" type="xsd:string"/>
+<xsd:element name="to" type="xsd:string"/>
+<xsd:element maxOccurs="unbounded" minOccurs="0" name="trips" type="TripsType"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="TripsType">
+<xsd:sequence>
+<xsd:element name="distance" type="xsd:int"/>
+<xsd:element name="duration" type="xsd:int"/>
+<xsd:sequence maxOccurs="unbounded" minOccurs="0">
+<xsd:element name="segments" type="SegmentType"/>
+</xsd:sequence>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="SegmentType">
+<xsd:sequence>
+<xsd:element name="distance" type="xsd:int"/>
+<xsd:element name="duration" type="xsd:int"/>
+<xsd:element name="transportType" type="modes"/>
+<xsd:element maxOccurs="unbounded" minOccurs="0" name="manouevres" type="xsd:string"/>
+<xsd:element minOccurs="0" name="dropInNode" type="xsd:string"/>
+<xsd:element minOccurs="0" name="dropOffNode" type="xsd:string"/>
+<xsd:element minOccurs="0" name="line" type="xsd:string"/>
+<xsd:element minOccurs="0" name="vehicleDirection" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="parkingRequest">
+<xsd:sequence>
+<xsd:element name="upperRightLat" type="xsd:double"/>
+<xsd:element name="upperRightLon" type="xsd:double"/>
+<xsd:element name="lowerLeftLat" type="xsd:double"/>
+<xsd:element name="lowerLeftLon" type="xsd:double"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="parkingResponse">
+<xsd:sequence maxOccurs="unbounded" minOccurs="0">
+<xsd:element name="parkings" type="ParkingType"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="ParkingType">
+<xsd:sequence>
+<xsd:element name="name" type="xsd:string"/>
+<xsd:element name="operator" type="xsd:string"/>
+<xsd:element name="type" type="xsd:string"/>
+<xsd:element name="lat" type="xsd:double"/>
+<xsd:element name="lon" type="xsd:double"/>
+<xsd:element name="capacity" type="xsd:int"/>
+<xsd:element name="freeSlots" type="xsd:int"/>
+<xsd:element name="tariffs" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="trafficRequest">
+<xsd:sequence>
+<xsd:element name="upperRightLat" type="xsd:double"/>
+<xsd:element name="upperRightLon" type="xsd:double"/>
+<xsd:element name="lowerLeftLat" type="xsd:double"/>
+<xsd:element name="lowerLeftLon" type="xsd:double"/>
+<xsd:element name="type" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="trafficResponse">
+<xsd:sequence maxOccurs="unbounded" minOccurs="0">
+<xsd:element name="trafficInfos" type="TrafficType"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="TrafficType">
+<xsd:sequence>
+<xsd:element name="name" type="xsd:string"/>
+<xsd:element name="lat" type="xsd:double"/>
+<xsd:element name="lon" type="xsd:double"/>
+<xsd:element name="description" type="xsd:string"/>
+<xsd:element name="startDate" type="xsd:dateTime"/>
+<xsd:element name="endDate" type="xsd:dateTime"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="latestPTRequest">
+<xsd:sequence>
+<xsd:element name="type" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="latestPTResponse">
+<xsd:sequence maxOccurs="unbounded" minOccurs="0">
+<xsd:element name="publicTransportNews" type="NewsType"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="weatherItemsRequest">
+<xsd:sequence>
+<xsd:element name="upperRightLat" type="xsd:double"/>
+<xsd:element name="upperRightLon" type="xsd:double"/>
+<xsd:element name="lowerLeftLat" type="xsd:double"/>
+<xsd:element name="lowerLeftLon" type="xsd:double"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="weatherItemsResponse">
+<xsd:sequence maxOccurs="unbounded" minOccurs="0">
+<xsd:element name="weatherStations" type="WeatherType"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="WeatherType">
+<xsd:sequence>
+<xsd:element name="temperature" type="xsd:float"/>
+<xsd:element name="humidity" type="xsd:int"/>
+<xsd:element name="lat" type="xsd:double"/>
+<xsd:element name="lon" type="xsd:double"/>
+<xsd:element name="pressure" type="xsd:float"/>
+<xsd:element name="windSpeed" type="xsd:float"/>
+<xsd:element name="rain" type="xsd:float"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="poiRequest">
+<xsd:sequence>
+<xsd:element name="upperRightLat" type="xsd:double"/>
+<xsd:element name="upperRightLon" type="xsd:double"/>
+<xsd:element name="lowerLeftLat" type="xsd:double"/>
+<xsd:element name="lowerLeftLon" type="xsd:double"/>
+<xsd:element name="type" type="xsd:int"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="poiResponse">
+<xsd:sequence maxOccurs="unbounded" minOccurs="0">
+<xsd:element name="pois" type="PoiType"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="PoiType">
+<xsd:sequence>
+<xsd:element name="name" type="xsd:string"/>
+<xsd:element name="description" type="xsd:string"/>
+<xsd:element name="lat" type="xsd:double"/>
+<xsd:element name="lon" type="xsd:double"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="latestNewsRequest">
+<xsd:sequence>
+<xsd:element minOccurs="0" name="type" type="xsd:string"/>
+<xsd:element name="lat" type="xsd:double"/>
+<xsd:element name="lon" type="xsd:double"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="latestNewsResponse">
+<xsd:sequence maxOccurs="unbounded" minOccurs="0">
+<xsd:element name="events" type="NewsType"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="NewsType">
+<xsd:sequence>
+<xsd:element name="name" type="xsd:string"/>
+<xsd:element name="description" type="xsd:string"/>
+<xsd:element name="startDate" type="xsd:dateTime"/>
+<xsd:element name="endDate" type="xsd:dateTime"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="getMobilityInfoRequestType">
+<xsd:sequence>
+<xsd:element name="choreographyId" type="choreographyInstanceRequest"/>
+<xsd:element name="senderParticipantName" type="xsd:string"/>
+<xsd:element name="receiverParticipantName" type="xsd:string"/>
+<xsd:element name="choreographyTaskName" type="xsd:string"/>
+<xsd:element name="inputMessageName" type="xsd:string"/>
+<xsd:element name="inputMessageData" type="getMobilityInfoRequest"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:element name="getMobilityInfoRequestElementRequest" type="getMobilityInfoRequestType"/>
+<xsd:element name="getMobilityInfoRequestElementResponse" type="getMobilityInfoRequestReturnType"/>
+<xsd:complexType name="getMobilityInfoRequestReturnType">
+<xsd:sequence/>
+</xsd:complexType>
+<xsd:complexType name="choreographyInstanceRequest">
+<xsd:sequence>
+<xsd:element name="choreographyId" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="sendRequestType">
+<xsd:sequence>
+<xsd:element name="choreographyId" type="choreographyInstanceRequest"/>
+<xsd:element name="senderParticipantName" type="xsd:string"/>
+<xsd:element name="receiverParticipantName" type="xsd:string"/>
+<xsd:element name="choreographyTaskName" type="xsd:string"/>
+<xsd:element name="inputMessageName" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:element name="sendTripsRequestElementRequest" type="sendRequestType"/>
+<xsd:complexType name="tripsRequestReturnType">
+<xsd:sequence>
+<xsd:element name="inputMessageData" type="tripsRequest"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:element name="sendTripsRequestElementResponse" type="tripsRequestReturnType"/>
+<xsd:complexType name="receiveTripsResponseType">
+<xsd:sequence>
+<xsd:element name="choreographyId" type="choreographyInstanceRequest"/>
+<xsd:element name="senderParticipantName" type="xsd:string"/>
+<xsd:element name="receiverParticipantName" type="xsd:string"/>
+<xsd:element name="choreographyTaskName" type="xsd:string"/>
+<xsd:element name="outputMessageName" type="xsd:string"/>
+<xsd:element name="outputMessageData" type="tripsResponse"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="receiveTripsResponseReturnType">
+<xsd:sequence/>
+</xsd:complexType>
+<xsd:element name="receiveTripsResponseElementRequest" type="receiveTripsResponseType"/>
+<xsd:element name="receiveTripsResponseElementResponse" type="receiveTripsResponseReturnType"/>
+<xsd:element name="sendParkingRequestElementRequest" type="sendRequestType"/>
+<xsd:complexType name="parkingRequestReturnType">
+<xsd:sequence>
+<xsd:element name="inputMessageData" type="parkingRequest"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:element name="sendParkingRequestElementResponse" type="parkingRequestReturnType"/>
+<xsd:complexType name="receiveParkingResponseType">
+<xsd:sequence>
+<xsd:element name="choreographyId" type="choreographyInstanceRequest"/>
+<xsd:element name="senderParticipantName" type="xsd:string"/>
+<xsd:element name="receiverParticipantName" type="xsd:string"/>
+<xsd:element name="choreographyTaskName" type="xsd:string"/>
+<xsd:element name="outputMessageName" type="xsd:string"/>
+<xsd:element name="outputMessageData" type="parkingResponse"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="receiveParkingResponseReturnType">
+<xsd:sequence/>
+</xsd:complexType>
+<xsd:element name="receiveParkingResponseElementRequest" type="receiveParkingResponseType"/>
+<xsd:element name="receiveParkingResponseElementResponse" type="receiveParkingResponseReturnType"/>
+<xsd:element name="sendTrafficRequestElementRequest" type="sendRequestType"/>
+<xsd:complexType name="trafficRequestReturnType">
+<xsd:sequence>
+<xsd:element name="inputMessageData" type="trafficRequest"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:element name="sendTrafficRequestElementResponse" type="trafficRequestReturnType"/>
+<xsd:complexType name="receiveTrafficResponseType">
+<xsd:sequence>
+<xsd:element name="choreographyId" type="choreographyInstanceRequest"/>
+<xsd:element name="senderParticipantName" type="xsd:string"/>
+<xsd:element name="receiverParticipantName" type="xsd:string"/>
+<xsd:element name="choreographyTaskName" type="xsd:string"/>
+<xsd:element name="outputMessageName" type="xsd:string"/>
+<xsd:element name="outputMessageData" type="trafficResponse"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="receiveTrafficResponseReturnType">
+<xsd:sequence/>
+</xsd:complexType>
+<xsd:element name="receiveTrafficResponseElementRequest" type="receiveTrafficResponseType"/>
+<xsd:element name="receiveTrafficResponseElementResponse" type="receiveTrafficResponseReturnType"/>
+<xsd:element name="sendLatestPTRequestElementRequest" type="sendRequestType"/>
+<xsd:complexType name="latestPTRequestReturnType">
+<xsd:sequence>
+<xsd:element name="inputMessageData" type="latestPTRequest"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:element name="sendLatestPTRequestElementResponse" type="latestPTRequestReturnType"/>
+<xsd:complexType name="receiveLatestPTResponseType">
+<xsd:sequence>
+<xsd:element name="choreographyId" type="choreographyInstanceRequest"/>
+<xsd:element name="senderParticipantName" type="xsd:string"/>
+<xsd:element name="receiverParticipantName" type="xsd:string"/>
+<xsd:element name="choreographyTaskName" type="xsd:string"/>
+<xsd:element name="outputMessageName" type="xsd:string"/>
+<xsd:element name="outputMessageData" type="latestPTResponse"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="receiveLatestPTResponseReturnType">
+<xsd:sequence/>
+</xsd:complexType>
+<xsd:element name="receiveLatestPTResponseElementRequest" type="receiveLatestPTResponseType"/>
+<xsd:element name="receiveLatestPTResponseElementResponse" type="receiveLatestPTResponseReturnType"/>
+<xsd:element name="sendGetMobilityInfoResponseElementRequest" type="sendRequestType"/>
+<xsd:complexType name="getMobilityInfoResponseReturnType">
+<xsd:sequence>
+<xsd:element name="inputMessageData" type="getMobilityInfoResponse"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:element name="sendGetMobilityInfoResponseElementResponse" type="getMobilityInfoResponseReturnType"/>
+</xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="receiveTrafficResponseMessageRequest">
+    <wsdl:part element="tns:receiveTrafficResponseElementRequest" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="sendLatestPTRequestMessageResponse">
+    <wsdl:part element="tns:sendLatestPTRequestElementResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="receiveParkingResponseMessageRequest">
+    <wsdl:part element="tns:receiveParkingResponseElementRequest" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="receiveTripsResponseMessageRequest">
+    <wsdl:part element="tns:receiveTripsResponseElementRequest" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="receiveParkingResponseMessageResponse">
+    <wsdl:part element="tns:receiveParkingResponseElementResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getMobilityInfoRequestMessageRequest">
+    <wsdl:part element="tns:getMobilityInfoRequestElementRequest" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="sendGetMobilityInfoResponseMessageRequest">
+    <wsdl:part element="tns:sendGetMobilityInfoResponseElementRequest" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="sendParkingRequestMessageRequest">
+    <wsdl:part element="tns:sendParkingRequestElementRequest" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="sendTripsRequestMessageResponse">
+    <wsdl:part element="tns:sendTripsRequestElementResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getMobilityInfoRequestMessageResponse">
+    <wsdl:part element="tns:getMobilityInfoRequestElementResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="sendLatestPTRequestMessageRequest">
+    <wsdl:part element="tns:sendLatestPTRequestElementRequest" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="receiveTrafficResponseMessageResponse">
+    <wsdl:part element="tns:receiveTrafficResponseElementResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="receiveLatestPTResponseMessageResponse">
+    <wsdl:part element="tns:receiveLatestPTResponseElementResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="receiveTripsResponseMessageResponse">
+    <wsdl:part element="tns:receiveTripsResponseElementResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="sendTrafficRequestMessageResponse">
+    <wsdl:part element="tns:sendTrafficRequestElementResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="sendTripsRequestMessageRequest">
+    <wsdl:part element="tns:sendTripsRequestElementRequest" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="sendGetMobilityInfoResponseMessageResponse">
+    <wsdl:part element="tns:sendGetMobilityInfoResponseElementResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="sendParkingRequestMessageResponse">
+    <wsdl:part element="tns:sendParkingRequestElementResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="receiveLatestPTResponseMessageRequest">
+    <wsdl:part element="tns:receiveLatestPTResponseElementRequest" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="sendTrafficRequestMessageRequest">
+    <wsdl:part element="tns:sendTrafficRequestElementRequest" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="MobilityInformationPlannerPT">
+    <wsdl:operation name="getMobilityInformation">
+      <wsdl:input message="tns:getMobilityInfoRequestMessageRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:getMobilityInfoRequestMessageResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sendTripsRequest">
+      <wsdl:input message="tns:sendTripsRequestMessageRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:sendTripsRequestMessageResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="receiveTripsResponse">
+      <wsdl:input message="tns:receiveTripsResponseMessageRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:receiveTripsResponseMessageResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sendParkingRequest">
+      <wsdl:input message="tns:sendParkingRequestMessageRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:sendParkingRequestMessageResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="receiveParkingResponse">
+      <wsdl:input message="tns:receiveParkingResponseMessageRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:receiveParkingResponseMessageResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sendTrafficRequest">
+      <wsdl:input message="tns:sendTrafficRequestMessageRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:sendTrafficRequestMessageResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="receiveTrafficResponse">
+      <wsdl:input message="tns:receiveTrafficResponseMessageRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:receiveTrafficResponseMessageResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sendLatestPTRequest">
+      <wsdl:input message="tns:sendLatestPTRequestMessageRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:sendLatestPTRequestMessageResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="receiveLatestPTResponse">
+      <wsdl:input message="tns:receiveLatestPTResponseMessageRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:receiveLatestPTResponseMessageResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sendGetMobilityInfoResponse">
+      <wsdl:input message="tns:sendGetMobilityInfoResponseMessageRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:sendGetMobilityInfoResponseMessageResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="MobilityInformationPlannerBinding" type="tns:MobilityInformationPlannerPT">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getMobilityInformation">
+      <soap:operation soapAction=""/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sendTripsRequest">
+      <soap:operation soapAction=""/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="receiveTripsResponse">
+      <soap:operation soapAction=""/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sendParkingRequest">
+      <soap:operation soapAction=""/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="receiveParkingResponse">
+      <soap:operation soapAction=""/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sendTrafficRequest">
+      <soap:operation soapAction=""/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="receiveTrafficResponse">
+      <soap:operation soapAction=""/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sendLatestPTRequest">
+      <soap:operation soapAction=""/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="receiveLatestPTResponse">
+      <soap:operation soapAction=""/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sendGetMobilityInfoResponse">
+      <soap:operation soapAction=""/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MobilityInformationPlannerService">
+    <wsdl:port binding="tns:MobilityInformationPlannerBinding" name="MobilityInformationPlannerPort">
+      <soap:address location="http://localhost:9090/MobilityInformationPlanner/MobilityInformationPlanner"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
