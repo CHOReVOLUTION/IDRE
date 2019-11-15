@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns="http://eu.chorevolution.urbantrafficcoordination.seada/types" xmlns:tns="http://eu.chorevolution.urbantrafficcoordination.seada/types" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://eu.chorevolution.urbantrafficcoordination.seada/types"> 
+
+    <xsd:complexType name="waypoint">
+        <xsd:sequence>
+            <xsd:element name="lat" type="xsd:double"/>
+            <xsd:element name="lon" type="xsd:double"/>
+        </xsd:sequence> 
+    </xsd:complexType>
+	
+	<xsd:complexType name="weatherCondition">
+	    <xsd:sequence>
+	        <xsd:element name="roadTemperature" type="xsd:double"/>
+	        <xsd:element name="airTemperature" type="xsd:double"/>   
+	        <xsd:element name="airRelativeHumidity" type="xsd:double"/>
+	        <xsd:element name="windForce" type="xsd:double"/>
+	    </xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="accidentInfo">
+	    <xsd:sequence>
+	        <xsd:element name="longitude" type="xsd:double"/>
+	        <xsd:element name="latitude" type="xsd:double"/>
+	        <xsd:element name="messageCodeValue" type="xsd:string"/>
+	        <xsd:element name="messageTypeValue" type="xsd:string"/>
+	        <xsd:element name="severityCode" type="xsd:int"/>
+			<xsd:element name="description" type="xsd:string"/>	  
+	    </xsd:sequence>
+	</xsd:complexType>	
+			
+	<xsd:complexType name="situationInfo">
+	    <xsd:sequence>
+		    <xsd:sequence maxOccurs="unbounded" minOccurs="1">
+		        <xsd:element name="accidents" type="tns:accidentInfo"/>
+		    </xsd:sequence>
+		    <xsd:element name="situationSummaryInfo" type="xsd:string"/>
+		    <xsd:element name="type" type="xsd:string"/>		    
+	    </xsd:sequence>
+	</xsd:complexType>
+	 
+	<xsd:complexType name="congestionInfo">
+	    <xsd:sequence>
+			<xsd:element name="speed" type="xsd:double"/>
+		    <xsd:element name="congestion" type="xsd:double"/>	
+	    </xsd:sequence>
+	</xsd:complexType>
+	
+    <xsd:complexType name="routeSegment">
+		<xsd:sequence>
+		    <xsd:element name="waypoint0" type="tns:waypoint"/>
+		    <xsd:element name="waypoint1" type="tns:waypoint"/>
+			<xsd:element name="instruction" type="xsd:string"/>
+			<xsd:element name="time" type="xsd:int"/>
+			<xsd:element name="distance" type="xsd:int"/>
+			<xsd:element name="polyline" type="xsd:string"/>
+		</xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="routeSegmentInfo">
+		<xsd:sequence>
+			<xsd:element name="id" type="xsd:int"/>
+		    <xsd:element name="routeSegment" type="tns:routeSegment"/>
+		    <xsd:element name="bridgeStatus" type="xsd:int"/>
+		    <xsd:element name="weatherInfo" type="tns:weatherCondition"/>
+		    <xsd:element name="situationInfo" type="tns:situationInfo"/>
+			<xsd:element name="ecoValue" type="xsd:double"/>
+			<xsd:element name="congestion" type="xsd:double"/>	
+			<xsd:element name="speed" type="xsd:double"/>	
+			<xsd:element name="updatedAt" type="xsd:string"/>	
+		    <xsd:element name="type" type="xsd:string"/>		    
+		</xsd:sequence>
+    </xsd:complexType>
+ 
+    <xsd:complexType name="route">
+		<xsd:sequence>
+			<xsd:element name="origin" type="tns:waypoint"/>
+		    <xsd:element name="destination" type="tns:waypoint"/>
+			<xsd:element name="routePolyline" type="xsd:string"/>
+			<xsd:sequence maxOccurs="unbounded" minOccurs="1">
+		        <xsd:element name="routeSegments" type="tns:routeSegment"/>
+		    </xsd:sequence>
+		</xsd:sequence>
+    </xsd:complexType>	
+    
+    <xsd:complexType name="routeData">
+		<xsd:sequence>
+			<xsd:element name="id" type="xsd:int"/>
+			<xsd:element name="provider" type="xsd:string"/>
+			<xsd:element name="origin" type="tns:waypoint"/>
+		    <xsd:element name="destination" type="tns:waypoint"/>
+			<xsd:element name="routePolyline" type="xsd:string"/>
+			<xsd:sequence maxOccurs="unbounded" minOccurs="1">
+		        <xsd:element name="routeSegments" type="tns:routeSegment"/>
+		    </xsd:sequence>
+		</xsd:sequence>
+    </xsd:complexType>	
+
+    <xsd:complexType name="routeInfo">
+		<xsd:sequence>
+		    <xsd:element name="id" type="xsd:int"/>
+			<xsd:element name="provider" type="xsd:string"/>
+			<xsd:element name="origin" type="tns:waypoint"/>
+		    <xsd:element name="destination" type="tns:waypoint"/>
+			<xsd:element name="routePolyline" type="xsd:string"/>
+			<xsd:sequence maxOccurs="unbounded" minOccurs="1">
+		        <xsd:element name="routeSegmentInfo" type="tns:routeSegmentInfo"/>
+		    </xsd:sequence>		    
+		    <xsd:element name="eco" type="xsd:double"/>		    
+		</xsd:sequence>
+    </xsd:complexType>	
+	
+	<xsd:complexType name="ecoRoutesRequest">
+		<xsd:sequence>
+		    <xsd:element name="origin" type="tns:waypoint"/>
+		    <xsd:element name="destination" type="tns:waypoint"/>
+			<xsd:element name="option" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="ecoFriendlyRoutesInformationRequest"> 
+		<xsd:sequence maxOccurs="unbounded" minOccurs="1">
+		    <xsd:element name="routes" type="tns:routeData"/>
+		</xsd:sequence>
+	</xsd:complexType> 
+   		
+	<xsd:complexType name="routesRequest">
+		<xsd:sequence>
+		    <xsd:element name="origin" type="tns:waypoint"/>
+		    <xsd:element name="destination" type="tns:waypoint"/>
+		</xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="routesSuggestion">      
+		<xsd:sequence maxOccurs="unbounded" minOccurs="1">
+		    <xsd:element name="routes" type="tns:route"/>
+		</xsd:sequence>
+    </xsd:complexType>
+    			
+	<xsd:complexType name="trafficRouteInformationRequest"> 
+		<xsd:sequence>
+		    <xsd:element name="trafficRoute" type="tns:routeData"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="trafficRouteInformationResponse"> 
+		<xsd:sequence>
+		    <xsd:element name="trafficRouteInfo" type="tns:routeInfo"/>
+		</xsd:sequence>
+	</xsd:complexType>	
+
+	<xsd:complexType name="ecoFriendlyRoutesInformationResponse"> 
+		<xsd:sequence maxOccurs="unbounded" minOccurs="1">
+		    <xsd:element name="routes" type="tns:routeInfo"/>
+		</xsd:sequence>
+	</xsd:complexType>  
+
+	<xsd:complexType name="ecoRoutesResponse"> 
+		<xsd:sequence maxOccurs="unbounded" minOccurs="1">
+		    <xsd:element name="routes" type="tns:routeInfo"/>
+		</xsd:sequence>
+	</xsd:complexType>  
+	
+	<xsd:complexType name="ecoSpeedRouteInformationRequest"> 
+	    <xsd:sequence maxOccurs="unbounded" minOccurs="1">
+	        <xsd:element name="routeSegments" type="tns:routeSegment"/>
+	    </xsd:sequence>
+	</xsd:complexType> 
+		
+	<xsd:complexType name="ecoSpeedRouteInformationResponse"> 
+	    <xsd:sequence maxOccurs="unbounded" minOccurs="1">
+	        <xsd:element name="routeSegmentInfo" type="tns:routeSegmentInfo"/>
+	    </xsd:sequence>
+	</xsd:complexType> 	
+						 	
+</xsd:schema>
