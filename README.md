@@ -4,6 +4,7 @@ The platform ensures the distributed coordination of services and things in a co
 services or partners may be substituted and network conditions may evolve.
 Changes are dynamically handled by CHOReVOLUTION through the automatic generation of specific
 artifacts, bringing:
+
 **1. Coordination:** When service interactions need to be suitably coordinated in a fully distributed way in order to fulfill the specified choreography, coordination delegates are generated.
 **2. Security:** When secure communication between services is required, CHOReVOLUTION generates security filters.
 **3. Heterogeneity:** When middleware protocols vary among the stakeholders, CHOReVOLUTION generates binding components.
