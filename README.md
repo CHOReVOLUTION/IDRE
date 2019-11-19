@@ -6,8 +6,11 @@ Changes are dynamically handled by CHOReVOLUTION through the automatic generatio
 artifacts, bringing:
 
 **1. Coordination:** When service interactions need to be suitably coordinated in a fully distributed way in order to fulfill the specified choreography, coordination delegates are generated.
+
 **2. Security:** When secure communication between services is required, CHOReVOLUTION generates security filters.
+
 **3. Heterogeneity:** When middleware protocols vary among the stakeholders, CHOReVOLUTION generates binding components.
+
 **4. Interoperability:** When heterogenous services with possibly mismatching interfaces need to communicate with each other, that is critical in IoT, the platform generates adapters
 
 
