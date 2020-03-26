@@ -18,12 +18,12 @@ artifacts, bringing:
 
 | Component | Repository | Version |
 | ------- | ------- | ------- |
-| **CHOReVOLUTION Studio** | [`chorevolution-studio`](https://github.com/seagroup-univaq/chorevolution-studio) | 2.2.0
-| **Synthesis Processor** | [`synthesis-processor`](https://github.com/seagroup-univaq/synthesis-processor) | 2.2.0
-| **Identity Manager** | [`syncope-idm`](https://github.com/seagroup-univaq/syncope-idm) | 2.1.0
+| **CHOReVOLUTION Studio** | [`chorevolution-studio`](https://github.com/chorevolution/chorevolution-studio) | 2.2.0
+| **Synthesis Processor** | [`synthesis-processor`](https://github.com/chorevolution/synthesis-processor) | 2.2.0
+| **Identity Manager** | [`syncope-idm`](https://github.com/chorevolution/syncope-idm) | 2.1.0
 
 ### Installation and Getting Started
-The [reference documentation](https://github.com/seagroup-univaq/CHOReVOLUTION-IDRE/wiki/User-Guide) includes detailed [installation instructions](https://github.com/seagroup-univaq/CHOReVOLUTION-IDRE/wiki/Installation-Guide) as well as a comprehensive getting started guide.
+The [reference documentation](https://github.com/chorevolution/CHOReVOLUTION-IDRE/wiki/User-Guide) includes detailed [installation instructions](https://github.com/chorevolution/CHOReVOLUTION-IDRE/wiki/Installation-Guide) as well as a comprehensive getting started guide.
 
 If you have any feedback or run into issues using our framework, please file an [issue](https://github.com/seagroup-univaq/CHOReVOLUTION-IDRE/issues) on this repository.
 
