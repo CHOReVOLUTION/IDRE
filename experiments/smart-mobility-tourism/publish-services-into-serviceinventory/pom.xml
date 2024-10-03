@@ -39,7 +39,7 @@ limitations under the License.
 
 		<all.java.dependencies.target-folder>${project.build.directory}/all-java-dependencies</all.java.dependencies.target-folder>
 		<syncope.version>2.0.3</syncope.version>
-		<commons-io.version>2.7</commons-io.version>
+		<commons-io.version>2.14.0</commons-io.version>
 		<slf4j-api.version>1.7.12</slf4j-api.version>
 		<slf4j-log4j12.version>1.7.12</slf4j-log4j12.version>
 	</properties>
